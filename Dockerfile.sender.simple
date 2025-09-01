@@ -1,0 +1,12 @@
+FROM python:3.9-slim
+
+WORKDIR /app
+
+# Copy the sender script
+COPY sender.py .
+
+# Make it executable
+RUN chmod +x sender.py
+
+# Run the sender
+CMD ["python", "sender.py"]
