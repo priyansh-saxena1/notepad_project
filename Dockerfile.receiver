@@ -1,0 +1,26 @@
+# Minimal Dockerfile for receiver service
+FROM ubuntu:22.04
+
+# Install essential build tools and dependencies
+RUN apt-get update && apt-get install -y \
+    g++ \
+    make \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set working directory
+WORKDIR /app
+
+# Copy source code
+COPY receiver_headless.cpp .
+
+# Compile the receiver
+RUN g++ -o receiver receiver_headless.cpp -pthread
+
+# Expose the default port
+EXPOSE 10000
+
+# Set environment variable for port (can be overridden)
+ENV PORT=10000
+
+# Run the receiver
+CMD ["sh", "-c", "./receiver $PORT"]

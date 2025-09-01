@@ -1,0 +1,33 @@
+# Dockerfile for sender web service
+FROM node:18-alpine
+
+# Install g++ for building the C++ sender
+RUN apk add --no-cache g++ make
+
+# Set working directory
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+
+# Install Node.js dependencies
+RUN npm install --only=production
+
+# Copy source code
+COPY sender_web.cpp .
+COPY web_server.js .
+COPY web_gui.html .
+
+# Compile the C++ sender
+RUN g++ -o sender sender_web.cpp -pthread
+
+# Set environment variables (can be overridden)
+ENV RECEIVER_HOST=localhost
+ENV RECEIVER_PORT=10000
+ENV PORT=3000
+
+# Expose the web server port
+EXPOSE 3000
+
+# Run the web server
+CMD ["npm", "start"]

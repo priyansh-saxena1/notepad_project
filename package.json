@@ -1,0 +1,21 @@
+{
+  "name": "notepad-web-sender",
+  "version": "1.0.0",
+  "description": "Web interface for notepad sender service",
+  "main": "web_server.js",
+  "scripts": {
+    "start": "node web_server.js",
+    "dev": "nodemon web_server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "author": "",
+  "license": "MIT"
+}

@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: notepad-receiver
+    env: docker
+    dockerfilePath: ./Dockerfile.receiver
+    plan: free
+    region: oregon
+    envVars:
+      - key: PORT
+        value: 10000
+    healthCheckPath: /
+    
+  - type: web
+    name: notepad-sender
+    env: docker
+    dockerfilePath: ./Dockerfile.sender
+    plan: free
+    region: oregon
+    envVars:
+      - key: PORT
+        value: 3000
+      - key: RECEIVER_HOST
+        fromService:
+          type: web
+          name: notepad-receiver
+          property: host
+      - key: RECEIVER_PORT
+        value: 10000
+    healthCheckPath: /

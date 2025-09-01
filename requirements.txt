@@ -1,2 +1,0 @@
-# No external dependencies needed for this simple setup
-# This file is required by Render but can be empty for basic Python scripts
